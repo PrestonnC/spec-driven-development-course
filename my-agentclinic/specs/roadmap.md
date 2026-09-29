@@ -3,7 +3,7 @@
 Nano phases: each is one small, independently shippable change with its own spec (plan, requirements, validation).
 
 1. ✅ Hello Hono: server starts, `/` returns text
-2. Site shell and home page: shared layout component (header, footer), home page using the layout, navigation links, base CSS and styling
+2. ✅ Site shell and home page: shared layout component (header, footer), home page using the layout, navigation links, base CSS and styling
 3. 404 page
 4. ✅ Test setup with one route test (pulled into Phase 1)
 5. Dashboard placeholder page at `/dashboard`
