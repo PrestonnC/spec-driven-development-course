@@ -14,8 +14,17 @@ Phase 1 is mergeable when every check below passes.
 6. Open `http://localhost:3000/` in a browser: the heading and tagline render inside the styled header, main, and footer (footer sits at the bottom).
 7. Stop the server with Ctrl+C; `npm start` also starts it and serves the same response.
 
+## Responsive design
+- Page has `<meta name="viewport" content="width=device-width, initial-scale=1">`.
+- In browser dev tools, at 360px, 768px, and 1280px widths: no horizontal scrolling, text readable without zooming, footer at the bottom, and gutters grow with width.
+- `public/styles.css` uses `min-width` media queries only (mobile-first).
+
+## Automated tests
+- `npm test` (`vitest run`) exits 0. `tests/app.test.tsx` covers `GET /` (status, `text/html`, doctype, title, h1, header/main/footer, stylesheet link) and `GET /styles.css` (`text/css`).
+- The manual curl checks above still confirm the running server.
+
 ## Pinned version
-- `package.json` lists `hono` as exactly `4.13.11` (no `^` or `~`).
+- `package.json` lists `hono` as exactly `4.13.11` and `vitest` as an exact version (no `^` or `~`).
 
 ## Layout structure
 - `src/components/` contains `Header.tsx`, `Main.tsx`, `Footer.tsx`, and `Layout.tsx`, each defining exactly one component in its own file; `Layout.tsx` imports and composes the other three.
@@ -25,5 +34,5 @@ Phase 1 is mergeable when every check below passes.
 - `npm run build` exits 0 with no type errors.
 
 ## Merge criteria
-- All checks above pass.
-- Diff contains only Phase 1 changes plus the minimal home page (no tests, navigation links, or extra routes).
+- All checks above pass, including `npm test`.
+- Diff contains only Phase 1 changes plus the minimal home page (no navigation links or extra routes).

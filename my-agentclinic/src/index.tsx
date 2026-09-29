@@ -1,13 +1,5 @@
 import { serve } from '@hono/node-server'
-import { serveStatic } from '@hono/node-server/serve-static'
-import { Hono } from 'hono'
-import { Home } from './pages/home'
-
-const app = new Hono()
-
-app.use('/styles.css', serveStatic({ root: './public' }))
-
-app.get('/', (c) => c.html(<Home />))
+import { app } from './app'
 
 const port = 3000
 

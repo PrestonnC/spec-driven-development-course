@@ -24,11 +24,19 @@
 1. Enable JSX in `tsconfig.json`: `"jsx": "react-jsx"`, `"jsxImportSource": "hono/jsx"`. Rename `src/index.ts` to `src/index.tsx` and update the `dev`/`start` scripts.
 2. Create three subcomponents, each in its own file (one component per file, no shared file) in `src/components/`: `Header.tsx` (brand link to `/`), `Main.tsx` (wraps `children` in `<main>`), `Footer.tsx`.
 3. Create `src/components/Layout.tsx`: emits the doctype, `<html>`, `<head>` (charset, viewport, `title` prop, `<link rel="stylesheet" href="/styles.css">`), and a body composing `<Header />`, `<Main>{children}</Main>`, `<Footer />`.
-4. Create `public/styles.css` (color variables, sticky-footer flex column body, header/main/footer styles).
+4. Create `public/styles.css`, mobile-first: color and `--gutter` variables, sticky-footer flex column body, fluid `h1` via `clamp()`, header/main/footer styles, and `min-width` media queries at `48em` and `64em` that increase gutters and padding. Brand link gets a 44px minimum touch target.
 5. Serve it with `serveStatic({ root: "./public" })` on `/styles.css`.
 6. Create the home page as `src/pages/home.tsx` (exports `Home`, rendered inside `<Layout title="AgentClinic">`) and have `src/index.tsx` render `<Home />` for `GET /`.
-7. Re-run `npm run build` to confirm strict type-checking passes.
+7. Confirm the layout `<head>` has the viewport meta tag.
+8. Re-run `npm run build` to confirm strict type-checking passes.
 
-## 6. Verify
-1. Follow every step in `validation.md`.
+## 6. Vitest tests
+1. Install a pinned Vitest: `npm install --save-dev --save-exact vitest`. Add `"test": "vitest run"` to `package.json`.
+2. Split the app from the server: `src/app.tsx` exports the Hono `app` (routes and static CSS); `src/index.tsx` only calls `serve`. This lets tests call `app.request()` without opening a port.
+3. Add `vitest.config.ts` limiting tests to `tests/**/*.test.{ts,tsx}` (so compiled output in `dist/` is ignored). Add `tests` and `vitest.config.ts` to `tsconfig.json` `include` so strict type-checking covers them.
+4. Write `tests/app.test.tsx`: viewport meta tag present and CSS is mobile-first (`min-width` queries, no `max-width` queries); `GET /` returns 200, `text/html`, doctype, title, h1, header/main/footer, and the stylesheet link; `GET /styles.css` returns 200 `text/css`.
+5. Run `npm test` and `npm run build`; both must pass.
+
+## 7. Verify
+1. Follow every step in `validation.md`, including `npm test`.
 2. Commit on branch `phase-1-hello-hono` and open a PR.
