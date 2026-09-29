@@ -1,3 +1,7 @@
+> **My coursework.** This is my personal copy of the companion files for *Spec-Driven Development with Coding Agents* by DeepLearning.AI and JetBrains, taught by Paul Everitt. I'm using it to learn spec-driven development by building AgentClinic with Claude Code. Course materials belong to their authors. My progress and changes are in my commits. Original README below.
+
+---
+
 # Spec-Driven Development with Agentic Coding Assistants
 
 This repository contains the companion code for the DeepLearning.AI Spec-Driven Development course. Each video folder holds the complete project state you need to follow along with that video.
