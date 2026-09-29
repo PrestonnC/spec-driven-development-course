@@ -8,7 +8,7 @@ Server-side TypeScript, with **Hono** as the recommended framework.
 - **Rendering:** Server-rendered JSX (`hono/jsx`) with a shared layout component
 - **Styling:** Plain modern CSS, responsive; modern browsers only
 - **Database:** SQLite via `better-sqlite3` is our database (a single local file, no separate server to run)
-- **Testing:** Vitest, using `app.request()` for route tests
+- **Testing:** Vitest, using `app.request()` for route tests. Vitest tests are how we validate every feature: each spec's `validation.md` should be backed by tests that run with `npm test` (`vitest run`) and must pass before merging.
 - **Tooling:** `tsx` for dev, `tsc` for type-checking/build, npm scripts
 
 ## Why Hono

@@ -29,6 +29,13 @@
 6. Create the home page as `src/pages/home.tsx` (exports `Home`, rendered inside `<Layout title="AgentClinic">`) and have `src/index.tsx` render `<Home />` for `GET /`.
 7. Re-run `npm run build` to confirm strict type-checking passes.
 
-## 6. Verify
-1. Follow every step in `validation.md`.
+## 6. Vitest tests
+1. Install a pinned Vitest: `npm install --save-dev --save-exact vitest`. Add `"test": "vitest run"` to `package.json`.
+2. Split the app from the server: `src/app.tsx` exports the Hono `app` (routes and static CSS); `src/index.tsx` only calls `serve`. This lets tests call `app.request()` without opening a port.
+3. Add `vitest.config.ts` limiting tests to `tests/**/*.test.{ts,tsx}` (so compiled output in `dist/` is ignored). Add `tests` and `vitest.config.ts` to `tsconfig.json` `include` so strict type-checking covers them.
+4. Write `tests/app.test.tsx`: `GET /` returns 200, `text/html`, doctype, title, h1, header/main/footer, and the stylesheet link; `GET /styles.css` returns 200 `text/css`.
+5. Run `npm test` and `npm run build`; both must pass.
+
+## 7. Verify
+1. Follow every step in `validation.md`, including `npm test`.
 2. Commit on branch `phase-1-hello-hono` and open a PR.

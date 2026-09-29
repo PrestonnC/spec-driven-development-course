@@ -8,7 +8,7 @@ Nano phases: each is one small, independently shippable change with its own spec
 4. Navigation links
 5. Base CSS and styling
 6. 404 page
-7. Test setup with one route test
+7. ✅ Test setup with one route test (pulled into Phase 1)
 8. Dashboard placeholder page at `/dashboard`
 9. Agent model and seed data (in memory)
 10. Agents list page
