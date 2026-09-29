@@ -1,5 +1,15 @@
 # Changelog
 
+## 2026-09-29 (specs alignment)
+- Add SQLite (`better-sqlite3`, pinned) with a migration runner, `agents`, `ailments`, and `agent_ailments` tables, seed data, and an `npm run seed` script
+- Add `/agents`, `/agents/:id` (404 when not found), and `/ailments` pages with list and detail components
+- Add tests for migrations, seeds, and the new routes
+- Match Phase 1 specs: `typecheck` script, viewport `initial-scale=1.0`, `src/pages/Home.tsx`, stylesheet at `static/style.css` served from `/static/style.css`
+- Rename the nav route list `src/routes.ts` to `src/nav.ts` so `src/routes/` can hold the Hono routers
+- Rename the Phase 2 spec folder to `specs/2026-09-29-agents-ailments` and align its wording with the code
+- Switch to PicoCSS's classless variant (`/pico.css` now serves `pico.classless.min.css`); header, main, and footer are styled as Pico containers, and the home cards use a small `.card-grid`
+- Mark roadmap Phase 2 as done
+
 ## 2026-09-29
 - Add Hono server with a home page served at `/`, using pinned dependency versions and strict TypeScript
 - Add shared layout built from Header, Main, and Footer components, each in its own file

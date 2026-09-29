@@ -1,42 +1,40 @@
-# Plan: Hello Hono
+# Phase 1 Plan — Hello Hono
 
-## 1. Dependencies and scripts
-1. Install exact versions: `npm install --save-exact hono@4.13.11 @hono/node-server@2.1.3` and `npm install --save-dev --save-exact tsx@4.23.15`.
-2. Confirm `package.json` has no `^` or `~` on `hono`.
-3. Add scripts: `"dev": "tsx watch src/index.ts"`, `"start": "tsx src/index.ts"`. Keep `"build": "tsc"`.
+## Group 1 — Package Setup
 
-## 2. TypeScript config
-1. Keep `"strict": true`.
-2. If needed for Hono/ESM resolution, adjust `module` and `moduleResolution` (e.g. `NodeNext`) and set `"type": "module"` in `package.json`.
-3. Run `npm run build` and fix any type errors without loosening strictness.
+1. Install `hono` (pin exact version, no `^` prefix)
+2. Install `tsx` as a dev dependency
+3. Verify `tsconfig.json` has `"strict": true` and a sensible `target`/`module` for Node
 
-## 3. Server
-1. Replace `src/index.ts` with a Hono app: `app.get('/', (c) => c.text('Hello, AgentClinic!'))`.
-2. Start it with `serve({ fetch: app.fetch, port: 3000 })` from `@hono/node-server`.
-3. Log the listening URL on startup.
-4. Run it and confirm the plain-text response with curl before moving on.
+## Group 2 — Application Entry Point
 
-## 4. Minimal home page
-1. Change the `GET /` handler to return `c.html(...)` with a minimal AgentClinic home page: `<title>AgentClinic</title>`, `<h1>Welcome to AgentClinic</h1>`, and a one-line tagline from the mission.
-2. Initially a plain HTML string; group 5 replaces it with the layout component.
+4. Replace `src/index.ts` placeholder with a minimal Hono app
+5. Add a single `GET /` route returning `"AgentClinic is open for business"`
+6. Call `serve()` to bind the app to a port (default 3000)
 
-## 5. Layout component and CSS
-1. Enable JSX in `tsconfig.json`: `"jsx": "react-jsx"`, `"jsxImportSource": "hono/jsx"`. Rename `src/index.ts` to `src/index.tsx` and update the `dev`/`start` scripts.
-2. Create three subcomponents, each in its own file (one component per file, no shared file) in `src/components/`: `Header.tsx` (brand link to `/`), `Main.tsx` (wraps `children` in `<main>`), `Footer.tsx`.
-3. Create `src/components/Layout.tsx`: emits the doctype, `<html>`, `<head>` (charset, viewport, `title` prop, `<link rel="stylesheet" href="/styles.css">`), and a body composing `<Header />`, `<Main>{children}</Main>`, `<Footer />`.
-4. Create `public/styles.css`, mobile-first: color and `--gutter` variables, sticky-footer flex column body, fluid `h1` via `clamp()`, header/main/footer styles, and `min-width` media queries at `48em` and `64em` that increase gutters and padding. Brand link gets a 44px minimum touch target.
-5. Serve it with `serveStatic({ root: "./public" })` on `/styles.css`.
-6. Create the home page as `src/pages/home.tsx` (exports `Home`, rendered inside `<Layout title="AgentClinic">`) and have `src/index.tsx` render `<Home />` for `GET /`.
-7. Confirm the layout `<head>` has the viewport meta tag.
-8. Re-run `npm run build` to confirm strict type-checking passes.
+## Group 3 — Dev Script
 
-## 6. Vitest tests
-1. Install a pinned Vitest: `npm install --save-dev --save-exact vitest`. Add `"test": "vitest run"` to `package.json`.
-2. Split the app from the server: `src/app.tsx` exports the Hono `app` (routes and static CSS); `src/index.tsx` only calls `serve`. This lets tests call `app.request()` without opening a port.
-3. Add `vitest.config.ts` limiting tests to `tests/**/*.test.{ts,tsx}` (so compiled output in `dist/` is ignored). Add `tests` and `vitest.config.ts` to `tsconfig.json` `include` so strict type-checking covers them.
-4. Write `tests/app.test.tsx`: viewport meta tag present and CSS is mobile-first (`min-width` queries, no `max-width` queries); `GET /` returns 200, `text/html`, doctype, title, h1, header/main/footer, and the stylesheet link; `GET /styles.css` returns 200 `text/css`.
-5. Run `npm test` and `npm run build`; both must pass.
+7. Add `"dev": "tsx src/index.ts"` (or `tsx watch`) to `package.json` scripts
+8. Add `"typecheck": "tsc --noEmit"` to `package.json` scripts
 
-## 7. Verify
-1. Follow every step in `validation.md`, including `npm test`.
-2. Commit on branch `phase-1-hello-hono` and open a PR.
+## Group 4 — Home Page
+
+9. Create a Hono JSX component for the home page (`src/pages/Home.tsx`)
+10. Page renders an `<h1>` with "AgentClinic" and a short tagline
+11. Update the `GET /` route to return the rendered JSX instead of a plain string
+
+## Group 5 — Layout Component
+
+12. Create `src/components/Layout.tsx` with a top-level shell (`<html>`, `<head>`, `<body>`); it imports `<Header>`, `<Main>`, and `<Footer>` from their own files
+13. Create `src/components/Header.tsx`, `src/components/Main.tsx`, and `src/components/Footer.tsx` as separate files, one component each
+14. `<head>` links to `/static/style.css`
+15. Create `static/style.css` with mobile-first base styles: CSS custom properties for spacing/color tokens, base element styles for small screens, and `min-width` media queries for larger viewports
+16. Serve the `static/` directory via `@hono/node-server/serve-static` in `src/index.tsx`
+17. Update `src/pages/Home.tsx` to use `<Layout>` and place page content inside `<Main>`
+
+## Group 6 — Verify
+
+18. Run `npm run typecheck` — must exit 0 with no errors
+19. Run `npm run dev` and confirm `curl localhost:3000` returns HTML containing the heading
+20. Confirm `curl localhost:3000/static/style.css` returns the CSS file
+21. Run `npm test` — must exit 0 (no test files required yet; Vitest must be installed)

@@ -1,5 +1,5 @@
 import { Layout } from '../components/Layout'
-import { dashboardPath, homePath, routes } from '../routes'
+import { dashboardPath, homePath, routes } from '../nav'
 
 const cards = routes.filter((route) => route.blurb)
 
@@ -14,7 +14,7 @@ export const Home = () => (
     </section>
     <section class="cards">
       <h2>How can we help today?</h2>
-      <div class="grid">
+      <div class="card-grid">
         {cards.map((card) => (
           <article>
             <h3>{card.label}</h3>

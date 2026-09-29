@@ -18,7 +18,7 @@ describe('GET /', () => {
     expect(body).toContain('<footer')
     expect(body).toContain('href="#main"')
     expect(body.indexOf('href="/pico.css"')).toBeGreaterThan(-1)
-    expect(body.indexOf('href="/styles.css"')).toBeGreaterThan(body.indexOf('href="/pico.css"'))
+    expect(body.indexOf('href="/static/style.css"')).toBeGreaterThan(body.indexOf('href="/pico.css"'))
   })
 
   it('shows the full navigation', async () => {
@@ -42,7 +42,7 @@ describe('GET /', () => {
 
 describe('stylesheets', () => {
   it('serves our stylesheet', async () => {
-    const res = await app.request('/styles.css')
+    const res = await app.request('/static/style.css')
     expect(res.status).toBe(200)
     expect(res.headers.get('Content-Type')).toContain('text/css')
   })
@@ -58,7 +58,7 @@ describe('stylesheets', () => {
 describe('responsive design', () => {
   it('sets a viewport meta tag so mobile browsers use device width', async () => {
     const body = await (await app.request('/')).text()
-    expect(body).toContain('<meta name="viewport" content="width=device-width, initial-scale=1"')
+    expect(body).toContain('<meta name="viewport" content="width=device-width, initial-scale=1.0"')
   })
 
   it('opts in to light and dark color schemes', async () => {
@@ -67,16 +67,16 @@ describe('responsive design', () => {
   })
 
   it('ships mobile-first CSS with min-width media queries', async () => {
-    const css = await (await app.request('/styles.css')).text()
+    const css = await (await app.request('/static/style.css')).text()
     expect(css).toMatch(/@media \(min-width: 48em\)/)
     expect(css).toMatch(/@media \(min-width: 80em\)/)
-    expect(css).not.toMatch(/max-width\s*:/)
+    expect(css).not.toMatch(/@media[^{]*max-width/)
   })
 })
 
 describe('brand colours', () => {
   it('override Pico with selectors at least as specific as its own palettes', async () => {
-    const css = await (await app.request('/styles.css')).text()
+    const css = await (await app.request('/static/style.css')).text()
     expect(css).toContain(':root:not([data-theme="dark"])')
     expect(css).toContain('[data-theme="dark"]')
     expect(css).toMatch(/@media \(prefers-color-scheme: dark\)\s*\{\s*:root:not\(\[data-theme\]\)/)
@@ -92,7 +92,7 @@ describe('static assets', () => {
     process.chdir(os.tmpdir())
     try {
       const { app: appFromElsewhere } = await import('../src/app')
-      for (const url of ['/styles.css', '/pico.css']) {
+      for (const url of ['/static/style.css', '/pico.css']) {
         const res = await appFromElsewhere.request(url)
         expect(res.status, url).toBe(200)
       }

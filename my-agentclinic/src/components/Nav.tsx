@@ -1,4 +1,4 @@
-import { homePath, isCurrent, routes } from '../routes'
+import { homePath, isCurrent, routes } from '../nav'
 
 type NavProps = {
   currentPath?: string

@@ -6,8 +6,6 @@ type HeaderProps = {
 
 export const Header = ({ currentPath }: HeaderProps) => (
   <header class="site-header">
-    <div class="container">
-      <Nav currentPath={currentPath} />
-    </div>
+    <Nav currentPath={currentPath} />
   </header>
 )

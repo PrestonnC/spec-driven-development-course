@@ -1,7 +1,9 @@
 import path from 'node:path'
 import { serveStatic } from '@hono/node-server/serve-static'
 import { Hono } from 'hono'
-import { Home } from './pages/home'
+import { Home } from './pages/Home'
+import { agentsRoutes } from './routes/agents'
+import { ailmentsRoutes } from './routes/ailments'
 
 // serveStatic roots are resolved against process.cwd(), so build them from this file's
 // location instead: the app then serves its assets no matter where it is started from.
@@ -15,9 +17,17 @@ app.use(
   '/pico.css',
   serveStatic({
     root: staticRoot('node_modules', '@picocss', 'pico', 'css'),
-    rewriteRequestPath: () => '/pico.min.css',
+    rewriteRequestPath: () => '/pico.classless.min.css',
   }),
 )
-app.use('/styles.css', serveStatic({ root: staticRoot('public') }))
+app.use(
+  '/static/*',
+  serveStatic({
+    root: staticRoot('static'),
+    rewriteRequestPath: (p) => p.replace(/^\/static/, ''),
+  }),
+)
 
 app.get('/', (c) => c.html(<Home />))
+app.route('/', agentsRoutes)
+app.route('/', ailmentsRoutes)

@@ -4,8 +4,8 @@ import { Header } from '../src/components/Header'
 import { Layout } from '../src/components/Layout'
 import { Main } from '../src/components/Main'
 import { Nav } from '../src/components/Nav'
-import { Home } from '../src/pages/home'
-import { routes } from '../src/routes'
+import { Home } from '../src/pages/Home'
+import { routes } from '../src/nav'
 
 // Hrefs of the links marked aria-current="page", whatever the attribute order.
 const currentHrefs = (html: string) =>
@@ -57,7 +57,7 @@ describe('Main', () => {
         <p>Hello</p>
       </Main>
     ).toString()
-    expect(html).toBe('<main id="main" class="site-main container" tabindex="-1"><p>Hello</p></main>')
+    expect(html).toBe('<main id="main" class="site-main" tabindex="-1"><p>Hello</p></main>')
   })
 })
 
@@ -66,7 +66,7 @@ describe('Footer', () => {
     vi.useFakeTimers()
     vi.setSystemTime(new Date('2030-06-01T12:00:00Z'))
     const html = (<Footer />).toString()
-    expect(html).toContain('<footer class="site-footer container">')
+    expect(html).toContain('<footer class="site-footer">')
     expect(html).toContain('Be gentle with your agents.')
     expect(html).toContain('© 2030')
   })
@@ -88,7 +88,7 @@ describe('Layout', () => {
     expect(html).toContain('<meta name="description"')
     expect(html).toContain('<meta name="color-scheme" content="light dark"/>')
     const pico = html.indexOf('<link rel="stylesheet" href="/pico.css"/>')
-    const styles = html.indexOf('<link rel="stylesheet" href="/styles.css"/>')
+    const styles = html.indexOf('<link rel="stylesheet" href="/static/style.css"/>')
     expect(pico).toBeGreaterThan(-1)
     expect(styles).toBeGreaterThan(pico)
   })

@@ -1,38 +1,58 @@
-# Validation: Hello Hono
+# Phase 1 Validation — Hello Hono
 
-Phase 1 is mergeable when every check below passes.
+## Definition of Done
 
-## Manual curl check
-1. `npm install` from a clean checkout succeeds.
-2. `npm run dev` starts the server and logs a listening URL (port 3000).
-3. In another terminal: `curl -i http://localhost:3000/`
-   - Status `200 OK`
-   - `Content-Type` starts with `text/html`
-   - Body is a complete HTML document containing `<title>AgentClinic</title>` and an `<h1>` with `Welcome to AgentClinic`
-4. `curl -s http://localhost:3000/` starts with `<!doctype html>` and contains `<header`, `<main`, `<footer`, and `<link rel="stylesheet" href="/styles.css"`.
-5. `curl -i http://localhost:3000/styles.css` returns `200` with `Content-Type: text/css`.
-6. Open `http://localhost:3000/` in a browser: the heading and tagline render inside the styled header, main, and footer (footer sits at the bottom).
-7. Stop the server with Ctrl+C; `npm start` also starts it and serves the same response.
+All of the following must be true before this branch is merged.
 
-## Responsive design
-- Page has `<meta name="viewport" content="width=device-width, initial-scale=1">`.
-- In browser dev tools, at 360px, 768px, and 1280px widths: no horizontal scrolling, text readable without zooming, footer at the bottom, and gutters grow with width.
-- `public/styles.css` uses `min-width` media queries only (mobile-first).
+### 1. TypeScript compiles cleanly
 
-## Automated tests
-- `npm test` (`vitest run`) exits 0. `tests/app.test.tsx` covers `GET /` (status, `text/html`, doctype, title, h1, header/main/footer, stylesheet link) and `GET /styles.css` (`text/css`).
-- The manual curl checks above still confirm the running server.
+```
+npm run typecheck
+```
 
-## Pinned version
-- `package.json` lists `hono` as exactly `4.13.11` and `vitest` as an exact version (no `^` or `~`).
+Must exit with code 0 and produce no errors or warnings.
 
-## Layout structure
-- `src/components/` contains `Header.tsx`, `Main.tsx`, `Footer.tsx`, and `Layout.tsx`, each defining exactly one component in its own file; `Layout.tsx` imports and composes the other three.
+### 2. Server starts
 
-## Strict TypeScript
-- `tsconfig.json` has `"strict": true`.
-- `npm run build` exits 0 with no type errors.
+```
+npm run dev
+```
 
-## Merge criteria
-- All checks above pass, including `npm test`.
-- Diff contains only Phase 1 changes plus the minimal home page (no navigation links or extra routes).
+Must start without errors. The terminal should show the server is listening (port 3000 or logged port).
+
+### 3. Route returns an HTML home page
+
+```
+curl -s http://localhost:3000
+```
+
+HTTP status must be `200 OK`. Response body must be HTML and must contain:
+
+- An `<h1>` element with the text `AgentClinic`
+- A tagline (any short descriptive text; exact wording is implementation choice)
+
+### 4. Hono version is pinned
+
+`package.json` must list `hono` without a `^` or `~` range prefix.
+
+### 5. Strict TypeScript is on
+
+`tsconfig.json` must contain `"strict": true`.
+
+### 6. Responsive design is in place
+
+The rendered HTML must contain `<meta name="viewport" content="width=device-width, initial-scale=1.0">`. `static/style.css` must use CSS custom properties and at least one `min-width` media query.
+
+### 7. Test script is wired up
+
+```
+npm test
+```
+
+Must exit with code 0. No test files are required for this phase, but the script must exist and Vitest must be installed.
+
+## Not Required
+
+- No additional test cases required for this phase beyond what is listed above
+- No CI pipeline required
+- Browser rendering not checked (curl is sufficient)

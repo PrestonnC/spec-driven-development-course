@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { isCurrent, routes } from '../src/routes'
+import { isCurrent, routes } from '../src/nav'
 
 describe('routes', () => {
   it('lists every planned section with unique hrefs', () => {

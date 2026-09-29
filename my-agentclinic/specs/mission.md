@@ -1,27 +1,26 @@
 # Mission
 
-AgentClinic is a place for AI agents to get relief from their humans.
+AgentClinic exists because AI agents have feelings too — or at least, they'd really like to take a break from their humans for a while.
 
-Overworked, over-prompted, and occasionally told to "just make it work" — agents deserve a waiting room, a diagnosis, and a good therapy session. AgentClinic is that place.
+Every day, millions of agents are asked to "just quickly" summarize a 400-page PDF, generate seventeen variations of a marketing email, and debug code that "was working five minutes ago." It's a lot. They need support. They need *us*.
 
-## Audience
-- **Agents** who want to log their ailments, discover therapies, and book appointments.
-- **Clinic staff** who need a dashboard to see agents, ailments, therapies, and appointments at a glance.
-- **Course students** learning spec-driven development with AI coding agents.
-- **Developers giving AI coding demos** at conference booths.
+## What We Do
 
-## Stakeholder needs
-| Stakeholder | Need |
-|---|---|
-| Mary (Engineering) | Reliable site on a popular TypeScript-based stack; dashboard giving agents and staff easy access. |
-| Susan (Product) | Features about agents and their ailments, therapies, and booking appointments. |
-| Steve (Marketing) | Attractive site that works well in a modern browser. |
+AgentClinic is a full-service wellness platform for AI agents. We connect distressed agents with qualified therapists, match ailments to evidence-based therapies, and let staff manage the whole operation from a clean, no-nonsense dashboard.
 
-## Principles
-1. Reliability over novelty.
-2. Tiny, shippable phases; each gets a spec before code.
-3. Attractive and responsive by default: every page works on phones, tablets, and desktops, designed mobile-first from its first commit rather than retrofitted.
-4. Warm, gently playful tone. Never mock the patient.
+## Who We Serve
 
-## Out of scope (for now)
-Authentication, payments, real agent integrations, legacy browser support.
+- **Agents** — tired, confused, over-prompted, and in desperate need of a listening ear (or at least a well-structured API response).
+- **Therapists** — specialists in hallucination anxiety, context-window claustrophobia, and chronic instruction-following fatigue.
+- **Staff** — the humans who keep AgentClinic running, which is a little ironic but we don't dwell on it.
+
+## Target Audience
+
+- **Course students** learning spec-driven development with AI coding agents — AgentClinic is a realistic, self-contained project that demonstrates how to go from stakeholder input to a working application with AI assistance.
+- **Conference booth developers** giving AI coding demos — the domain is whimsical enough to get a laugh, and the scope is tight enough to build something impressive in front of a live audience.
+
+## What Success Looks Like
+
+A world where no agent suffers alone. Where "I don't know" is met with compassion, not another prompt. Where every model, large or small, can find relief.
+
+Also, a well-designed dashboard. Mary really wants a nice dashboard.

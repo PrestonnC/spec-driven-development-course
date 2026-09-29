@@ -1,15 +1,50 @@
 # Tech Stack
 
-Server-side TypeScript, with **Hono** as the recommended framework.
+AgentClinic is a server-side TypeScript application. All rendering happens on the server; the browser receives plain HTML that works well and looks good.
 
-- **Language:** TypeScript (strict mode)
-- **Runtime:** Node.js 18+
-- **Framework:** Hono with `@hono/node-server`
-- **Rendering:** Server-rendered JSX (`hono/jsx`) with a shared layout component
-- **Styling:** PicoCSS (`@picocss/pico`, pinned, self-hosted from `node_modules`) as the base stylesheet, with a small `public/styles.css` of project overrides. Responsive by default and mobile-first: our own styles target small screens, `min-width` media queries (48em tablet, 64em desktop) enhance for larger ones; relative units (`rem`, `clamp()`), a viewport meta tag on every page, and touch targets of at least 44px. Modern browsers only.
-- **Database:** SQLite via `better-sqlite3` is our database (a single local file, no separate server to run)
-- **Testing:** Vitest, using `app.request()` for route tests. Vitest tests are how we validate every feature: each spec's `validation.md` should be backed by tests that run with `npm test` (`vitest run`) and must pass before merging.
-- **Tooling:** `tsx` for dev, `tsc` for type-checking/build, npm scripts
+## Core
 
-## Why Hono
-Popular and TypeScript-first, tiny and fast, minimal dependencies, and JSX rendering means no separate template language. That fits Mary's ask for reliability on a mainstream stack.
+| Layer | Choice | Rationale |
+|---|---|---|
+| Language | TypeScript | Type safety end-to-end; satisfies Mary's requirement |
+| Runtime | Node.js | Stable, well-supported, vast ecosystem |
+| Server framework | **Hono** | Lightweight, TypeScript-first, fast, excellent DX; routes and middleware feel natural |
+| Templating | Hono JSX (server-side) | JSX without React overhead; components are just functions |
+| CSS | PicoCSS 2.1.1 classless variant (pinned, self-hosted at `/pico.css`) + a small override stylesheet with CSS custom properties | No build step required; semantic HTML is styled by default; mobile-first responsive layout; Steve gets a modern, attractive result on any device |
+
+## Recommended: Hono
+
+[Hono](https://hono.dev) is chosen over Express/Fastify because:
+
+- First-class TypeScript with zero config
+- Built-in JSX renderer for server-side HTML
+- Middleware model is simple and composable
+- Runs on Node, Deno, Bun, and edge runtimes without changes
+
+## Data
+
+- **SQLite** (via `better-sqlite3`) for local development and early production — simple, embedded, no infrastructure
+- Migrations via plain SQL files; no ORM to start
+
+## Testing
+
+- **Vitest** — fast, TypeScript-native, compatible with the rest of the stack
+- Tests live alongside source files or in a `tests/` directory
+- Run via `npm test`; CI must pass before merge
+
+## Tooling
+
+- `tsx` for development (run TypeScript directly, no build step needed)
+- `tsc` for production builds
+- `prettier` for formatting
+
+## CSS Approach
+
+PicoCSS (classless variant) is the base stylesheet, served locally from `node_modules` (no CDN). Project overrides live in `static/style.css`, served at `/static/style.css` and linked after Pico. Our CSS is mobile-first: base styles target small screens and `min-width` media queries progressively enhance for larger viewports. CSS custom properties hold brand colors and other tokens so values stay consistent across breakpoints. No build step — the browser receives two flat stylesheets.
+
+## What We Are Not Using
+
+- No CSS framework beyond PicoCSS (no Tailwind or Bootstrap)
+- No React, Vue, or Svelte — server-side rendering keeps the stack simple
+- No ORM — SQL is sufficient at this scale
+- No Docker — not yet; that's a later phase concern

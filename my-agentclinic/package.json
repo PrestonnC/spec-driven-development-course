@@ -7,14 +7,18 @@
     "dev": "tsx watch src/index.tsx",
     "start": "tsx src/index.tsx",
     "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "seed": "tsx src/db/seed.ts",
     "test": "vitest run"
   },
   "dependencies": {
     "@hono/node-server": "2.1.3",
     "@picocss/pico": "2.1.1",
+    "better-sqlite3": "13.0.3",
     "hono": "4.13.11"
   },
   "devDependencies": {
+    "@types/better-sqlite3": "9.6.0",
     "@types/node": "22.20.4",
     "tsx": "4.23.15",
     "typescript": "^5.5.3",

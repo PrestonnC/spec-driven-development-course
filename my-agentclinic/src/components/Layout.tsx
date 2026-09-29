@@ -16,7 +16,7 @@ export const Layout = ({ title, currentPath, children }: LayoutProps) => (
     <html lang="en">
       <head>
         <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="color-scheme" content="light dark" />
         <meta
           name="description"
@@ -24,7 +24,7 @@ export const Layout = ({ title, currentPath, children }: LayoutProps) => (
         />
         <title>{title}</title>
         <link rel="stylesheet" href="/pico.css" />
-        <link rel="stylesheet" href="/styles.css" />
+        <link rel="stylesheet" href="/static/style.css" />
       </head>
       <body>
         <a class="skip-link" href="#main">

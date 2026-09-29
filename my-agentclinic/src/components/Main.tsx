@@ -5,7 +5,7 @@ type MainProps = {
 }
 
 export const Main = ({ children }: MainProps) => (
-  <main id="main" class="site-main container" tabindex={-1}>
+  <main id="main" class="site-main" tabindex={-1}>
     {children}
   </main>
 )
