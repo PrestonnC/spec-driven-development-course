@@ -2,7 +2,7 @@
 
 High-level implementation order in very small phases. Each phase is a shippable vertical slice.
 
-## Phase 1: Hello Hono
+## Phase 1: Hello Hono ✅ Complete
 - Add Hono and the Node server; serve a home page at `/`
 - Dev script with reload
 
