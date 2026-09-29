@@ -15,6 +15,8 @@
 - Use orange and black brand colours, applied to Pico in both light and dark mode; make the header full width and the wrapped nav compact on phones
 - Serve static assets relative to the app location so styles load regardless of the working directory
 - Add `@types/node` and raise the TypeScript target to `es2020`; extract component props into named types
+- Add tests for the route list, nav highlighting, brand-colour selectors, and serving assets from another working directory
+- Update the tech stack to use PicoCSS as the base stylesheet, and mark roadmap Phase 2 as done
 - Add plan, requirements, and validation specs for Phase 2: Site shell and home page
 
 ## 2026-09-28
