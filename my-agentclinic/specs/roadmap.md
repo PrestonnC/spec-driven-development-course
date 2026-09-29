@@ -24,5 +24,5 @@ Nano phases: each is one small, independently shippable change with its own spec
 20. Book-an-appointment form
 21. Appointments list and cancel
 22. Dashboard summary (agents, ailments, upcoming appointments)
-23. Responsive design pass
+23. Responsive design audit (responsiveness is built in from Phase 1 on; this pass reviews every page at phone, tablet, and desktop widths and fixes gaps)
 24. Accessibility pass

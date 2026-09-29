@@ -20,7 +20,7 @@ Overworked, over-prompted, and occasionally told to "just make it work" — agen
 ## Principles
 1. Reliability over novelty.
 2. Tiny, shippable phases; each gets a spec before code.
-3. Attractive and responsive by default.
+3. Attractive and responsive by default: every page works on phones, tablets, and desktops, designed mobile-first from its first commit rather than retrofitted.
 4. Warm, gently playful tone. Never mock the patient.
 
 ## Out of scope (for now)

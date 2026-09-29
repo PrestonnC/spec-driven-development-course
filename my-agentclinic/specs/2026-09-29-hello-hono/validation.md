@@ -14,6 +14,11 @@ Phase 1 is mergeable when every check below passes.
 6. Open `http://localhost:3000/` in a browser: the heading and tagline render inside the styled header, main, and footer (footer sits at the bottom).
 7. Stop the server with Ctrl+C; `npm start` also starts it and serves the same response.
 
+## Responsive design
+- Page has `<meta name="viewport" content="width=device-width, initial-scale=1">`.
+- In browser dev tools, at 360px, 768px, and 1280px widths: no horizontal scrolling, text readable without zooming, footer at the bottom, and gutters grow with width.
+- `public/styles.css` uses `min-width` media queries only (mobile-first).
+
 ## Automated tests
 - `npm test` (`vitest run`) exits 0. `tests/app.test.tsx` covers `GET /` (status, `text/html`, doctype, title, h1, header/main/footer, stylesheet link) and `GET /styles.css` (`text/css`).
 - The manual curl checks above still confirm the running server.
