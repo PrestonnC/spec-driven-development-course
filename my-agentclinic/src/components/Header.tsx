@@ -1,5 +1,13 @@
-export const Header = () => (
+import { Nav } from './Nav'
+
+type HeaderProps = {
+  currentPath?: string
+}
+
+export const Header = ({ currentPath }: HeaderProps) => (
   <header class="site-header">
-    <a class="brand" href="/">AgentClinic</a>
+    <div class="container">
+      <Nav currentPath={currentPath} />
+    </div>
   </header>
 )
