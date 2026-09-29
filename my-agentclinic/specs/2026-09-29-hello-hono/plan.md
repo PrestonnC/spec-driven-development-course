@@ -17,10 +17,18 @@
 4. Run it and confirm the plain-text response with curl before moving on.
 
 ## 4. Minimal home page
-1. Change the `GET /` handler to return `c.html(...)` with a minimal HTML document: `<title>AgentClinic</title>`, `<h1>Welcome to AgentClinic</h1>`, and a one-line tagline from the mission.
-2. Keep it a plain HTML string: no JSX, layout, CSS, or links (Phases 2-5).
-3. Re-run `npm run build` to confirm strict type-checking still passes.
+1. Change the `GET /` handler to return `c.html(...)` with a minimal AgentClinic home page: `<title>AgentClinic</title>`, `<h1>Welcome to AgentClinic</h1>`, and a one-line tagline from the mission.
+2. Initially a plain HTML string; group 5 replaces it with the layout component.
 
-## 5. Verify
+## 5. Layout component and CSS
+1. Enable JSX in `tsconfig.json`: `"jsx": "react-jsx"`, `"jsxImportSource": "hono/jsx"`. Rename `src/index.ts` to `src/index.tsx` and update the `dev`/`start` scripts.
+2. Create three subcomponents, each in its own file (one component per file, no shared file) in `src/components/`: `Header.tsx` (brand link to `/`), `Main.tsx` (wraps `children` in `<main>`), `Footer.tsx`.
+3. Create `src/components/Layout.tsx`: emits the doctype, `<html>`, `<head>` (charset, viewport, `title` prop, `<link rel="stylesheet" href="/styles.css">`), and a body composing `<Header />`, `<Main>{children}</Main>`, `<Footer />`.
+4. Create `public/styles.css` (color variables, sticky-footer flex column body, header/main/footer styles).
+5. Serve it with `serveStatic({ root: "./public" })` on `/styles.css`.
+6. Create the home page as `src/pages/home.tsx` (exports `Home`, rendered inside `<Layout title="AgentClinic">`) and have `src/index.tsx` render `<Home />` for `GET /`.
+7. Re-run `npm run build` to confirm strict type-checking passes.
+
+## 6. Verify
 1. Follow every step in `validation.md`.
 2. Commit on branch `phase-1-hello-hono` and open a PR.

@@ -9,11 +9,16 @@ Phase 1 is mergeable when every check below passes.
    - Status `200 OK`
    - `Content-Type` starts with `text/html`
    - Body is a complete HTML document containing `<title>AgentClinic</title>` and an `<h1>` with `Welcome to AgentClinic`
-4. Open `http://localhost:3000/` in a browser: the heading and tagline render.
-5. Stop the server with Ctrl+C; `npm start` also starts it and serves the same response.
+4. `curl -s http://localhost:3000/` starts with `<!doctype html>` and contains `<header`, `<main`, `<footer`, and `<link rel="stylesheet" href="/styles.css"`.
+5. `curl -i http://localhost:3000/styles.css` returns `200` with `Content-Type: text/css`.
+6. Open `http://localhost:3000/` in a browser: the heading and tagline render inside the styled header, main, and footer (footer sits at the bottom).
+7. Stop the server with Ctrl+C; `npm start` also starts it and serves the same response.
 
 ## Pinned version
 - `package.json` lists `hono` as exactly `4.13.11` (no `^` or `~`).
+
+## Layout structure
+- `src/components/` contains `Header.tsx`, `Main.tsx`, `Footer.tsx`, and `Layout.tsx`, each defining exactly one component in its own file; `Layout.tsx` imports and composes the other three.
 
 ## Strict TypeScript
 - `tsconfig.json` has `"strict": true`.
@@ -21,4 +26,4 @@ Phase 1 is mergeable when every check below passes.
 
 ## Merge criteria
 - All checks above pass.
-- Diff contains only Phase 1 changes plus the minimal home page (no JSX, layout, tests, CSS, links, or extra routes).
+- Diff contains only Phase 1 changes plus the minimal home page (no tests, navigation links, or extra routes).

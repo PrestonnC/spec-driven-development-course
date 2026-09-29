@@ -1,0 +1,49 @@
+:root {
+  --bg: #f7fbfa;
+  --text: #1f2d2b;
+  --accent: #2a8c82;
+  --muted: #5d706d;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: system-ui, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+}
+
+.site-header,
+.site-footer {
+  padding: 1rem 1.5rem;
+}
+
+.site-header {
+  background: var(--accent);
+}
+
+.brand {
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.25rem;
+  text-decoration: none;
+}
+
+.site-main {
+  flex: 1;
+  width: 100%;
+  max-width: 48rem;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+.site-footer {
+  color: var(--muted);
+  text-align: center;
+}

@@ -2,7 +2,7 @@
 
 Nano phases: each is one small, independently shippable change with its own spec (plan, requirements, validation).
 
-1. Hello Hono: server starts, `/` returns text
+1. ✅ Hello Hono: server starts, `/` returns text
 2. Shared layout component (header, footer)
 3. Home page using the layout
 4. Navigation links
